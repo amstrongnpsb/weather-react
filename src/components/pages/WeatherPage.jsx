@@ -1,15 +1,16 @@
-import { Fragment } from "react";
-import Sidebar from "../fragments/Sidebar";
+import Sidebar from "../fragments/SideBar";
 import ContentLayout from "../layouts/ContentLayout";
+import MainLayout from "../layouts/MainLayout";
+import WeatherInfoLayout from "../layouts/WeatherInfoLayout";
 
 const WeatherPage = () => {
   return (
-    <Fragment>
-      <div className="flex flex-row bg-gray-900 p-10 min-h-screen justify-between gap-5">
-        <Sidebar></Sidebar>
-        <ContentLayout></ContentLayout>
-      </div>
-    </Fragment>
+    <MainLayout>
+      <Sidebar />
+      <ContentLayout>
+        <WeatherInfoLayout />
+      </ContentLayout>
+    </MainLayout>
   );
 };
 
