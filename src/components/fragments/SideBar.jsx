@@ -1,6 +1,3 @@
-import WeatherIcon from "../../assets/icons/weather-forecast.png";
-import SettingIcon from "../../assets/icons/profile-setting.png";
-import AboutIcon from "../../assets/icons/information.png";
 import NavbarLink from "../elements/navbar";
 import { NavLink } from "react-router-dom";
 const Sidebar = () => {
@@ -13,25 +10,14 @@ const Sidebar = () => {
         <p className="">Weather</p>
         <p className="self-end">Apps</p>
       </NavLink>
-      <ul className="space-y-4">
+      <ul className="space-y-4 flex justify-center flex-col text-center font-bold">
         <NavbarLink
-          icon={WeatherIcon}
-          alt_attr="weather-icon"
+          icon="fa-magnifying-glass-chart"
           name="Weather"
-          href={"weather"}
+          href="weather"
         />
-        <NavbarLink
-          icon={SettingIcon}
-          alt_attr="setting-icon"
-          name="Settings"
-          href={"setting"}
-        />
-        <NavbarLink
-          icon={AboutIcon}
-          alt_attr="about-icon"
-          name="About"
-          href={"about"}
-        />
+        <NavbarLink icon="fa-gear" name="Settings" href="setting" />
+        <NavbarLink icon="fa-circle-info" name="About" href="about" />
       </ul>
     </div>
   );

@@ -1,23 +1,14 @@
 import { NavLink } from "react-router-dom";
-const Navlink = ({ icon, alt_attr, name, href }) => {
+const Navlink = ({ icon, name, href }) => {
   return (
     <NavLink
       to={`/${href}`}
-      className="px-4 py-2 font-bold rounded-xl text-center space-y-1 "
-      style={({ isActive }) => {
-        return {
-          color: isActive ? "darkred" : "",
-        };
-      }}
+      className={({ isActive }) =>
+        isActive ? "text-sky-950" : "hover:text-gray-700 active:text-gray-400"
+      }
     >
-      <div className="h-10 aspect-square m-auto">
-        <img
-          src={`${icon}`}
-          alt={`${alt_attr}`}
-          className="object-contain w-full h-full"
-        />
-      </div>
-      <p className="text-base">{`${name}`}</p>
+      <i className={`fa-solid ${icon} fa-solid text-5xl`}></i>
+      <p className="text-base">{name}</p>
     </NavLink>
   );
 };
