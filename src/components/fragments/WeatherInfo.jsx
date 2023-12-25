@@ -57,8 +57,8 @@ const WeatherInfo = ({ result }) => {
     },
   ];
   return (
-    <div className="h-full rounded-xl bg-gray-900 px-5 py-3 flex flex-row justify-between animate-fade-in">
-      <div className="left-info-wrapper w-1/2 flex justify-between">
+    <div className="h-full rounded-xl bg-gray-900 px-5 py-3 flex flex-row justify-between animate-pop-in">
+      <div className="left-info-wrapper w-1/2 flex justify-between animate-pop-in">
         <div className=" w-1/2 p-10 flex flex-col justify-between">
           <div>
             <p className="city-title text-white text-5xl">{result.name}</p>
@@ -78,7 +78,7 @@ const WeatherInfo = ({ result }) => {
           </div>
         </div>
       </div>
-      <div className="right-info-wrapper w-1/2 flex flex-wrap justify-end text-gray-900 p-3 gap-3">
+      <div className="right-info-wrapper w-1/2 flex flex-wrap justify-end text-gray-900 p-3 gap-3 animate-pop-in">
         {detailInfo.map((item, index) => (
           <DetailCard
             key={index}

@@ -4,7 +4,9 @@ const Navlink = ({ icon, name, href }) => {
     <NavLink
       to={`/${href}`}
       className={({ isActive }) =>
-        isActive ? "text-sky-950" : "hover:text-gray-700 active:text-gray-400"
+        isActive
+          ? "text-sky-950"
+          : "hover:text-gray-700 active:text-gray-400  transition duration-300 ease-in-out"
       }
     >
       <i className={`fa-solid ${icon} fa-solid text-5xl`}></i>
