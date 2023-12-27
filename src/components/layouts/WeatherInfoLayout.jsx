@@ -6,11 +6,12 @@ import { debounce } from "lodash";
 import NoData from "../fragments/NoData";
 import HistoryCard from "../fragments/HistoryCard";
 import BounceLoading from "../elements/loadings/BounceLoading";
+import { AnimatePresence, motion } from "framer-motion";
 const WeatherInfoLayout = () => {
   const [weatherData, setWeatherData] = useState([]);
+  const [debounceValue, setDebounceValue] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [weatherHistory, setWeatherHistory] = useState([]);
-
   useEffect(() => {
     if (!localStorage.getItem("weatherHistory")) {
       localStorage.setItem("weatherHistory", JSON.stringify([]));
@@ -30,8 +31,19 @@ const WeatherInfoLayout = () => {
     setWeatherHistory(updatedHistoryList);
   };
   const debouncedSearch = debounce(async (inputSearch) => {
-    setIsLoading(true);
-    const response = await Fetching(inputSearch);
+    if (inputSearch != "") {
+      return setDebounceValue(inputSearch);
+    }
+  }, 800);
+  useEffect(() => {
+    if (debounceValue != "") {
+      setIsLoading(false);
+      fetchingData(debounceValue);
+    }
+    setIsLoading(false);
+  }, [debounceValue]);
+  const fetchingData = async () => {
+    const response = await Fetching(debounceValue);
     if (response.name == "AxiosError") {
       setWeatherData([]);
       setIsLoading(false);
@@ -45,23 +57,27 @@ const WeatherInfoLayout = () => {
         iconUrl: `https://openweathermap.org/img/wn/${response.weather[0].icon}@2x.png`,
         time: new Date().toLocaleTimeString(),
       };
-      if (!localStorage.getItem("weatherHistory")) {
-        localStorage.setItem("weatherHistory", JSON.stringify([]));
-      }
-      setWeatherHistory([...weatherHistory, historyTemplate]);
-      localStorage.setItem(
-        "weatherHistory",
-        JSON.stringify([...weatherHistory, historyTemplate])
-      );
+      storeToLocalStorage(historyTemplate);
     }
-  }, 800);
-  const handleSearch = (e) => {
-    debouncedSearch(e.target.value);
+    setDebounceValue("");
+  };
+  const storeToLocalStorage = (historyTemplate) => {
+    if (!localStorage.getItem("weatherHistory")) {
+      localStorage.setItem("weatherHistory", JSON.stringify([]));
+    }
+    setWeatherHistory([...weatherHistory, historyTemplate]);
+    localStorage.setItem(
+      "weatherHistory",
+      JSON.stringify([...weatherHistory, historyTemplate])
+    );
+  };
+  const handleSearch = (input) => {
+    debouncedSearch(input);
   };
 
   return (
     <Fragment>
-      <div className="w-10/12  rounded-xl flex flex-col gap-4 animate-fade-in">
+      <div className="weatherInfoLayout w-10/12 rounded-xl flex flex-col gap-4 animate-fade-in">
         <div className="rounded-xl h-2/3 flex gap-4 flex-col">
           <SearchButton searchInput={handleSearch} />
           {isLoading && <BounceLoading />}
@@ -76,21 +92,37 @@ const WeatherInfoLayout = () => {
           <h1>Weather UI</h1>
         </div>
       </div>
-      <div className="min-w-fit w-2/12 bg-gray-900 rounded-xl p-2 text-white animate-pop-in">
+
+      <div className="min-w-fit w-2/12 bg-gray-900 rounded-xl p-2 max-h-screen text-white animate-pop-in overflow-auto">
         <h1 className="text-center">History</h1>
         <div className="w-full flex flex-col justify-center gap-4 mt-4">
           {weatherHistory.length == 0 && (
             <NoData infoText={"No History Found"} textSize={"text-base"} />
           )}
-
-          {weatherHistory.length != 0 &&
-            weatherHistory.map((data) => (
-              <HistoryCard
-                key={data.id}
-                weatherHistory={data}
-                handleDelete={deleteHistory}
-              />
-            ))}
+          <AnimatePresence>
+            {weatherHistory.length != 0 &&
+              weatherHistory.map((data, index) => {
+                return (
+                  <motion.div
+                    key={data.id}
+                    initial={{ opacity: 0, y: -50 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{
+                      delay: index * 0.05,
+                      duration: 0.2,
+                      type: "spring",
+                      stiffness: 100,
+                    }}
+                  >
+                    <HistoryCard
+                      key={data.id}
+                      weatherHistory={data}
+                      handleDelete={deleteHistory}
+                    />
+                  </motion.div>
+                );
+              })}
+          </AnimatePresence>
         </div>
       </div>
     </Fragment>

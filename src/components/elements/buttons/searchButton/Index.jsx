@@ -5,7 +5,7 @@ const SearchButton = ({ searchInput }) => {
         type="text"
         placeholder="Search for Cities"
         className="w-full rounded-l-lg outline-none px-4 py-1 bg-gray-900 text-white placeholder-gray-300"
-        onChange={searchInput}
+        onChange={(e) => searchInput(e.target.value)}
       />
       <span className="text-white text-2xl flex items-center px-3 cursor-pointer">
         <ion-icon name="search-outline"></ion-icon>

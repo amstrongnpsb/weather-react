@@ -6,3 +6,8 @@
   font-family: "poppins-reg";
   src: url("../src/assets/fonts/Poppins-Regular.ttf");
 }
+.progress-bar {
+  height: 10px;
+  background: #ff0055;
+  transform-origin: 0%;
+}
