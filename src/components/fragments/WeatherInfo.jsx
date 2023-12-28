@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import DetailCard from "../elements/weather-elements/DetailCard";
 import timeConvert from "../services/timeConvert";
+import { motion } from "framer-motion";
 const WeatherInfo = ({ result }) => {
   const baseUrl = window.location.origin;
 
@@ -57,8 +58,17 @@ const WeatherInfo = ({ result }) => {
     },
   ];
   return (
-    <div className="h-full rounded-xl bg-gray-900 px-5 py-3 flex flex-row justify-between animate-pop-in">
-      <div className="left-info-wrapper w-1/2 flex justify-between animate-pop-in">
+    <motion.div
+      initial={{ opacity: 0.8, x: -50 }}
+      animate={{ opacity: 1, x: 0 }}
+      transition={{
+        duration: 0.5,
+        type: "spring",
+        stiffness: 100,
+      }}
+      className="h-full rounded-xl bg-gray-900 px-5 py-3 flex flex-row justify-between"
+    >
+      <div className="left-info-wrapper w-1/2 flex justify-between">
         <div className=" w-1/2 p-10 flex flex-col justify-between">
           <div>
             <p className="city-title text-white text-5xl">{result.name}</p>
@@ -78,7 +88,7 @@ const WeatherInfo = ({ result }) => {
           </div>
         </div>
       </div>
-      <div className="right-info-wrapper w-1/2 flex flex-wrap justify-end text-gray-900 p-3 gap-3 animate-pop-in">
+      <div className="right-info-wrapper w-1/2 flex flex-wrap justify-end text-gray-900 p-3 gap-3">
         {detailInfo.map((item, index) => (
           <DetailCard
             key={index}
@@ -89,7 +99,7 @@ const WeatherInfo = ({ result }) => {
           />
         ))}
       </div>
-    </div>
+    </motion.div>
   );
 };
 

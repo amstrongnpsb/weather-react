@@ -6,8 +6,24 @@
   font-family: "poppins-reg";
   src: url("../src/assets/fonts/Poppins-Regular.ttf");
 }
-.progress-bar {
-  height: 10px;
-  background: #ff0055;
-  transform-origin: 0%;
+/* ===== Scrollbar CSS ===== */
+/* Firefox */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #475569 #111827;
+}
+
+/* Chrome, Edge, and Safari */
+*::-webkit-scrollbar {
+  width: 8px;
+}
+
+*::-webkit-scrollbar-track {
+  background: #111827;
+}
+
+*::-webkit-scrollbar-thumb {
+  background-color: #475569;
+  border-radius: 0px;
+  border: 0px inset #111827;
 }

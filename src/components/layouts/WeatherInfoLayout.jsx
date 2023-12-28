@@ -13,11 +13,6 @@ const WeatherInfoLayout = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [weatherHistory, setWeatherHistory] = useState([]);
   useEffect(() => {
-    if (!localStorage.getItem("weatherHistory")) {
-      localStorage.setItem("weatherHistory", JSON.stringify([]));
-    }
-  }, [weatherHistory]);
-  useEffect(() => {
     setWeatherHistory(JSON.parse(localStorage.getItem("weatherHistory")) || []);
   }, []);
   const deleteHistory = (id) => {
@@ -31,17 +26,19 @@ const WeatherInfoLayout = () => {
     setWeatherHistory(updatedHistoryList);
   };
   const debouncedSearch = debounce(async (inputSearch) => {
+    setIsLoading(true);
     if (inputSearch != "") {
       return setDebounceValue(inputSearch);
     }
+    if (inputSearch == "") {
+      setIsLoading(false);
+      setWeatherData([]);
+    }
   }, 800);
   useEffect(() => {
-    if (debounceValue != "") {
-      setIsLoading(false);
-      fetchingData(debounceValue);
-    }
-    setIsLoading(false);
+    debounceValue != "" && fetchingData(debounceValue);
   }, [debounceValue]);
+  // console.log(debounceValue);
   const fetchingData = async () => {
     const response = await Fetching(debounceValue);
     if (response.name == "AxiosError") {
@@ -77,7 +74,7 @@ const WeatherInfoLayout = () => {
 
   return (
     <Fragment>
-      <div className="weatherInfoLayout w-10/12 rounded-xl flex flex-col gap-4 animate-fade-in">
+      <div className="weatherInfoLayout w-10/12 rounded-xl flex flex-col gap-4">
         <div className="rounded-xl h-2/3 flex gap-4 flex-col">
           <SearchButton searchInput={handleSearch} />
           {isLoading && <BounceLoading />}
