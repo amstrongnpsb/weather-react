@@ -4,6 +4,7 @@ export default {
     extend: {
       colors: {
         "dark-red": "#9A031E",
+        "white-custom": "#DEFBFF",
       },
       fontFamily: {
         "poppins-reg": ["poppins-reg", "sans-serif"],

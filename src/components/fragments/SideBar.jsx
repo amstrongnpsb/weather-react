@@ -64,6 +64,12 @@ const Sidebar = () => {
         <NavLink
           to={"/"}
           className="logo w-28 mx-auto text-white text-lg font-bold flex flex-col justify-center items-center bg-gray-900 rounded-xl p-3"
+          style={({ isActive }) => {
+            return {
+              color: isActive ? "" : "",
+              background: isActive ? "#111827" : "",
+            };
+          }}
         >
           <motion.p
             variants={{

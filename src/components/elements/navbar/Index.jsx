@@ -10,11 +10,14 @@ const Navlink = ({ name, href, iconImg, variants }) => {
     >
       <NavLink
         to={`/${href}`}
-        className={({ isActive }) => (isActive ? "text-red-700" : "")}
+        className={({ isActive }) =>
+          isActive ? "active text-white-custom" : ""
+        }
       >
         <div className="w-14 mx-auto">
           <img src={iconImg} className="w-full" alt="" />
         </div>
+
         <motion.div className="text-base" variants={variants}>
           {name}
         </motion.div>

@@ -27,3 +27,14 @@
   border-radius: 0px;
   border: 0px inset #111827;
 }
+/* swiper bullet custom color */
+.swiper-pagination-bullet-active {
+  background: #475569 !important;
+}
+.swiper-pagination-bullet {
+  background: white !important;
+}
+.active img {
+  filter: invert(100%) sepia(23%) saturate(452%) hue-rotate(176deg)
+    brightness(108%) contrast(101%);
+}
