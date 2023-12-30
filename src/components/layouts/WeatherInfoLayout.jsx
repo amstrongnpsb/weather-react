@@ -8,7 +8,6 @@ import HistoryCard from "../fragments/HistoryCard";
 import BounceLoading from "../elements/loadings/BounceLoading";
 import { AnimatePresence, motion } from "framer-motion";
 import ForecastInfo from "../fragments/ForecastInfo";
-
 const WeatherInfoLayout = () => {
   const [weatherData, setWeatherData] = useState([]);
   const [forecastData, setForecastData] = useState([]);
@@ -47,7 +46,6 @@ const WeatherInfoLayout = () => {
     const response = await FetchingWeather(debounceValue);
     if (response.name == "AxiosError") {
       setWeatherData([]);
-
       setIsLoading(false);
     } else {
       setWeatherData(response);
@@ -103,16 +101,19 @@ const WeatherInfoLayout = () => {
             />
           )}
         </div>
-        {Boolean(forecastData.length) && (
-          <ForecastInfo results={forecastData} />
-        )}
-        {Boolean(!forecastData.length) && (
-          <NoData
-            infoText={"No Forecast to Display"}
-            textSize={"text-2xl"}
-            height={"h-1/3"}
-          />
-        )}
+        <div className="rounded-xl h-1/3 flex gap-4 flex-col">
+          {isLoading && <BounceLoading />}
+          {Boolean(!isLoading && forecastData.length) && (
+            <ForecastInfo results={forecastData} />
+          )}
+          {Boolean(!isLoading && !forecastData.length) && (
+            <NoData
+              infoText={"No Forecast to Display"}
+              textSize={"text-2xl"}
+              height={"h-full"}
+            />
+          )}
+        </div>
       </div>
 
       <div className="min-w-fit w-2/12 bg-gray-900 rounded-xl p-2 max-h-screen text-white animate-pop-in overflow-auto">
@@ -135,9 +136,13 @@ const WeatherInfoLayout = () => {
                     animate={{ opacity: 1, y: 0 }}
                     transition={{
                       delay: index * 0.05,
-                      duration: 0.2,
+                      duration: 0.1,
                       type: "spring",
                       stiffness: 100,
+                    }}
+                    exit={{
+                      x: 100,
+                      transition: { duration: 0.1 },
                     }}
                   >
                     <HistoryCard

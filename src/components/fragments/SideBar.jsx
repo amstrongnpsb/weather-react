@@ -3,10 +3,14 @@ import { NavLink } from "react-router-dom";
 import weatherIcon from "../../assets/icons/weatherIcon.svg";
 import settingsIcon from "../../assets/icons/settingsIcon.svg";
 import reactIcon from "../../assets/icons/reactIcon.svg";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import { useState } from "react";
+import DarkButton from "../elements/buttons/darkModeButton/DarkButton";
+import LightButton from "../elements/buttons/darkModeButton/LightButton";
 const Sidebar = () => {
   const [isShown, setIsShown] = useState(false);
+  const [darkMode, setDarkMode] = useState(true);
+
   const itemVariants = {
     open: {
       display: "block",
@@ -105,6 +109,13 @@ const Sidebar = () => {
           variants={itemVariants}
         />
       </ul>
+      <AnimatePresence>
+        {darkMode ? (
+          <DarkButton handleCLick={() => setDarkMode(!darkMode)} />
+        ) : (
+          <LightButton handleCLick={() => setDarkMode(!darkMode)} />
+        )}
+      </AnimatePresence>
     </motion.div>
   );
 };

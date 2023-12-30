@@ -14,6 +14,7 @@ const ForecastInfo = ({ results }) => {
         type: "spring",
         stiffness: 100,
       }}
+      className=" text-white w-full h-[300px] cursor-grab"
     >
       <Swiper
         slidesPerView={3}
@@ -23,7 +24,7 @@ const ForecastInfo = ({ results }) => {
           clickable: true,
         }}
         modules={[FreeMode, Pagination]}
-        className="mySwiper text-white w-full h-[300px] cursor-grab"
+        className="mySwiper"
       >
         {results.map((forecastDataItem) => {
           return (
