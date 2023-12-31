@@ -9,16 +9,23 @@ import DarkButton from "../elements/buttons/darkModeButton/DarkButton";
 import LightButton from "../elements/buttons/darkModeButton/LightButton";
 const Sidebar = () => {
   const [isShown, setIsShown] = useState(false);
-  const [darkMode, setDarkMode] = useState(true);
+  const [darkMode, setDarkMode] = useState("");
   const elements = document.documentElement;
   useEffect(() => {
-    if (!darkMode) {
+    setDarkMode(JSON.parse(localStorage.getItem("darkTheme")) || false);
+  }, []);
+  useEffect(() => {
+    const darkTheme = JSON.parse(localStorage.getItem("darkTheme"));
+    if (!darkTheme) {
       elements.classList.add("dark");
     } else {
       elements.classList.remove("dark");
     }
   }, [darkMode]);
-
+  const handlingTheme = () => {
+    setDarkMode(!darkMode);
+    localStorage.setItem("darkTheme", JSON.stringify(!darkMode));
+  };
   const itemVariants = {
     open: {
       display: "block",
@@ -119,9 +126,9 @@ const Sidebar = () => {
       </ul>
       <AnimatePresence>
         {darkMode ? (
-          <DarkButton handleCLick={() => setDarkMode(!darkMode)} />
+          <DarkButton handleCLick={() => handlingTheme()} />
         ) : (
-          <LightButton handleCLick={() => setDarkMode(!darkMode)} />
+          <LightButton handleCLick={() => handlingTheme()} />
         )}
       </AnimatePresence>
     </motion.div>
