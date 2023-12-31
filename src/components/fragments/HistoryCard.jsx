@@ -7,7 +7,7 @@ const HistoryCard = ({ weatherHistory, handleDelete }) => {
       className="flex flex-col relative cursor-pointer rounded-lg px-4 transition duration-300 ease-in-out shadow-[_rgba(0,0,0,0.4)_0px_6px_12px_-2px,_rgba(0,0,0,0.14)_0px_3px_7px_-3px]"
     >
       <motion.div
-        className="absolute bg-slate-600 w-full h-full left-0 rounded-r-full flex items-center text-xl justify-center gap-4"
+        className="absolute dark:bg-slate-100 bg-slate-600 w-full h-full left-0 rounded-r-full flex items-center text-xl justify-center gap-4"
         initial={{ opacity: 0, x: -40 }}
         whileHover={{ opacity: 1, x: 0 }}
       >

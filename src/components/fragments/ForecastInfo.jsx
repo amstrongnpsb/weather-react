@@ -7,11 +7,10 @@ import "swiper/css/pagination";
 const ForecastInfo = ({ results }) => {
   return (
     <motion.div
-      initial={{ opacity: 0.8, x: -50 }}
-      animate={{ opacity: 1, x: 0 }}
+      initial={{ opacity: 0.8, scale: 0 }}
+      animate={{ opacity: 1, scale: 1 }}
       transition={{
         duration: 0.5,
-        type: "spring",
         stiffness: 100,
       }}
       className=" text-white w-full h-[300px] cursor-grab"
@@ -29,7 +28,7 @@ const ForecastInfo = ({ results }) => {
         {results.map((forecastDataItem) => {
           return (
             <SwiperSlide
-              className="w-80 rounded-xl bg-gray-900 h-full p-4"
+              className="w-80 rounded-xl dark:bg-gray-200 dark:text-gray-900 bg-gray-900 h-full p-5"
               key={forecastDataItem.dt}
             >
               <small>{forecastDataItem.dt_txt}</small>

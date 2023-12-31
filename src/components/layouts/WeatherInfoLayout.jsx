@@ -116,7 +116,7 @@ const WeatherInfoLayout = () => {
         </div>
       </div>
 
-      <div className="min-w-fit w-2/12 bg-gray-900 rounded-xl p-2 max-h-screen text-white animate-pop-in overflow-auto">
+      <div className="min-w-fit w-2/12 dark:bg-gray-200 dark:text-gray-900 bg-gray-900 rounded-xl p-2 max-h-screen text-white animate-pop-in overflow-auto">
         <h1 className="text-center">History</h1>
         <div className="w-full flex flex-col justify-center gap-4 mt-4">
           {weatherHistory.length == 0 && (

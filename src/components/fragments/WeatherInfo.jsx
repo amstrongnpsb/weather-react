@@ -59,25 +59,26 @@ const WeatherInfo = ({ result }) => {
   ];
   return (
     <motion.div
-      initial={{ opacity: 0.8, x: -50 }}
-      animate={{ opacity: 1, x: 0 }}
+      initial={{ opacity: 0.8, scale: 0 }}
+      animate={{ opacity: 1, scale: 1 }}
       transition={{
         duration: 0.5,
-        type: "spring",
         stiffness: 100,
       }}
-      className="h-full rounded-xl bg-gray-900 px-5 py-3 flex flex-row justify-between"
+      className="h-full rounded-xl dark:bg-gray-200 bg-gray-900 px-5 py-3 flex flex-row justify-between"
     >
       <div className="left-info-wrapper w-1/2 flex justify-between">
         <div className=" w-1/2 p-10 flex flex-col justify-between">
           <div>
-            <p className="city-title text-white text-5xl">{result.name}</p>
-            <p className="city-title text-white text-2xl">
+            <p className="city-title dark:text-gray-900 text-white text-5xl">
+              {result.name}
+            </p>
+            <p className="city-title dark:text-gray-900 text-white text-2xl">
               {result.sys.country}
             </p>
           </div>
           <div>
-            <p className="temperature-title text-white text-6xl">
+            <p className="temperature-title dark:text-gray-900 text-white text-6xl">
               {result.weather[0].main}
             </p>
           </div>

@@ -4,12 +4,26 @@ import weatherIcon from "../../assets/icons/weatherIcon.svg";
 import settingsIcon from "../../assets/icons/settingsIcon.svg";
 import reactIcon from "../../assets/icons/reactIcon.svg";
 import { motion, AnimatePresence } from "framer-motion";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import DarkButton from "../elements/buttons/darkModeButton/DarkButton";
 import LightButton from "../elements/buttons/darkModeButton/LightButton";
 const Sidebar = () => {
   const [isShown, setIsShown] = useState(false);
   const [darkMode, setDarkMode] = useState(true);
+  const elements = document.documentElement;
+  useEffect(() => {
+    switch (darkMode) {
+      case "dark":
+        elements.classList.add("dark");
+        break;
+      case "light":
+        elements.classList.remove("dark");
+        break;
+
+      default:
+        break;
+    }
+  }, [darkMode]);
 
   const itemVariants = {
     open: {
