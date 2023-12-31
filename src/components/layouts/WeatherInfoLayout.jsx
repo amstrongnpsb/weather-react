@@ -64,6 +64,7 @@ const WeatherInfoLayout = () => {
   const fetchingForcastData = async () => {
     const response = await FetchingForecast(debounceValue);
     if (response.name == "AxiosError") {
+      setForecastData([]);
       setIsLoading(false);
     } else {
       setForecastData(response.list);
