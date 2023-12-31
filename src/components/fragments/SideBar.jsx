@@ -12,16 +12,10 @@ const Sidebar = () => {
   const [darkMode, setDarkMode] = useState(true);
   const elements = document.documentElement;
   useEffect(() => {
-    switch (darkMode) {
-      case "dark":
-        elements.classList.add("dark");
-        break;
-      case "light":
-        elements.classList.remove("dark");
-        break;
-
-      default:
-        break;
+    if (!darkMode) {
+      elements.classList.add("dark");
+    } else {
+      elements.classList.remove("dark");
     }
   }, [darkMode]);
 
